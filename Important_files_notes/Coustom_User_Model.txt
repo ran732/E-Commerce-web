@@ -1,0 +1,55 @@
+admin.py
+
+1. ordering = ('-date_joined',)
+
+This controls the order in which users appear in the admin list.
+
+ordering = ('-date_joined',)
+date_joined → oldest to newest
+-date_joined → newest to oldest
+
+Ex:--
+       Ranjeet   24 Aug 2026
+       Amit      20 Aug 2026
+       Rahul     15 Aug 2026
+
+____________________________________________________
+
+2. fieldsets = ()
+
+fieldsets controls how fields are organised on the Add/Edit User page.
+
+ex:--
+
+fieldsets = (
+        ('Personal Information', {
+            'fields': (
+                'first_name',
+                'last_name',
+                'username',
+                'email',
+                'phone_number',
+                'password',
+            )
+        }),
+
+        ('Permissions', {
+            'fields': (
+                'is_active',
+                'is_staff',
+                'is_admin',
+                'is_superadmin',
+            )
+        }),
+
+        ('Important Dates', {
+            'fields': (
+                'last_login',
+                'date_joined',
+            )
+        }),
+    )
+
+---------------------------------------------------------
+
+get_object_or_404():

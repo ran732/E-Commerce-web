@@ -1,0 +1,87 @@
+STATIC_URL = 'static/'   #bydefeault in stetting.py
+
+What URL should be used to access static files?"
+greatkart/
+└── static/
+    ├── css/
+    │   └── style.css
+    └── js/
+        └── script.js
+
+
+/static/css/style.css
+/static/js/script.js    
+
+
+HTML
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+{% static 'css/style.css' %}   --->  /static/css/style.css
+
+STATIC_URL = How the browser accesses static files
+
+
+---------------------------------------------------------------------------
+
+STATICFILES_DIRS = [
+    BASE_DIR / "greatkart" / "static",
+]
+
+During development, also look for static files in this folder.
+
+New folder/
+│
+├── manage.py
+│
+├── greatkart/
+│   ├── settings.py
+│   ├── urls.py
+│   │
+│   └── static/
+│       ├── css/
+│       │   └── style.css
+│       ├── js/
+│       │   └── script.js
+│       └── images/
+│           └── logo.png
+
+
+BASE_DIR / "greatkart" / "static" -->  C:\Users\MANISH\Desktop\New folder\greatkart\static
+
+
+
+____________________________________________________________
+
+STATIC_ROOT = BASE_DIR / "staticfiles"  #staticfiles/
+
+
+When I run collectstatic, put all static files into this folder.
+
+python manage.py collectstatic
+
+New folder/
+│
+├── manage.py
+│
+├── greatkart/
+│   └── static/
+│       ├── css/
+│       ├── js/
+│       └── images/
+│
+└── staticfiles/
+    ├── css/
+    ├── js/
+    └── images/
+
+
+____________________________________________________________
+
+| Setting            | Meaning                                                   |
+| ------------------ | --------------------------------------------------------- |
+| `STATIC_URL`       | **URL used by browser**                                   |
+| `STATICFILES_DIRS` | **Where Django looks for static files**                   |
+| `STATIC_ROOT`      | **Where Django collects all static files for deployment** |
+  _________________________________________________________

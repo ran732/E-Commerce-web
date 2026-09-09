@@ -1,0 +1,15 @@
+python manage.py makemigrations
+python manage.py migrate
+
+pip install django
+pip freeze
+
+django-admin startproject greatkart .
+
+.\.env\Scripts\Activate.ps1
+
+python -m pip install Pillow   #for imagefield used in model(category)
+
+pip install mysqlclient
+
+python manage.py collectstatic

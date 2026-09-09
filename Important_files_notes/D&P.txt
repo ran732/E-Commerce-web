@@ -1,0 +1,35 @@
+| Development                                                    | Production                                            |
+| -------------------------------------------------------------- | ----------------------------------------------------- |
+| You are building/testing                                       | Real users use the website                            |
+| `runserver`                                                    | Production server setup                               |
+| Local computer                                                 | Deployment server                                     |
+| Debugging is enabled                                           | `DEBUG = False`                                       |
+| Django can serve static files                                  | Static files are usually served separately            |
+| `STATICFILES_DIRS` is important for finding extra static files | `STATIC_ROOT` is important for collected static files |
+| `collectstatic` usually isn't needed                           | `collectstatic` is normally run                       |
+
+_______________________________________
+
+Development:
+
+greatkart/static/
+       ↓
+Django finds files
+       ↓
+Browser
+🧑‍💻 Development = building and testing
+__________________________________________
+Production:
+
+greatkart/static/
+app/static/
+       ↓
+python manage.py collectstatic
+       ↓
+staticfiles/
+       ↓
+Web server serves static files
+       ↓
+Browser
+
+🌍 Production = deployed website used by real users
