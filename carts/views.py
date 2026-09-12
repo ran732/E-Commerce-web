@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from store.models import Product
 from carts.models import Cart,CartItem
-from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
+
+from django.http import HttpResponse
 
 def _cart_id(request):
     cart = request.session.session_key
@@ -12,6 +13,15 @@ def _cart_id(request):
         
 
 def add_cart(request,product_id):
+    
+    # color = request.GET['color']
+    # size = request.GET['size']
+    if request.method == 'POST':
+        color = request.POST['color']
+        size = request.POST['size']
+        print(f"Color: {color} | Size: {size}")
+   
+    
     product = Product.objects.get(id=product_id) #get the product
     
     try:

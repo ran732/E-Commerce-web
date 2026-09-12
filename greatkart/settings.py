@@ -68,6 +68,8 @@ TEMPLATES = [
                 
                 'category.context_processors.menu_links',  ##
                 
+                'carts.context_processors.counter', ##
+                
             ],
         },
     },
