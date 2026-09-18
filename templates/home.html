@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %}
 
 <!-- ========================= SECTION MAIN ========================= -->
 
@@ -13,7 +15,6 @@
   </div>
 </section>
 
-<!-- ========================= SECTION MAIN END ========================= -->
 
 <!-- ========================= SECTION ========================= -->
 
@@ -31,7 +32,7 @@
 
     <div class="row">
       {% for product in products%}
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="card card-product-grid">
           <a href="{{product.get_url}}" class="img-wrap">
             <img src="{{product.images.url}}" />
@@ -42,7 +43,7 @@
               {{ product.product_name}}
             </a>
 
-            <div class="price mt-1">${{product.price}}</div>
+            <div class="price mt-1">₹{{product.price}}</div>
           </figcaption>
         </div>
       </div>
