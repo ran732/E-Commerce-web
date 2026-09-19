@@ -39,22 +39,9 @@ def register(request):
             })
             to_email = email
             send_email = EmailMessage(mail_subject, message, to=[to_email])
-            try:
-                send_email.send()
-                uid = urlsafe_base64_encode(force_bytes(user.pk))
-                token = default_token_generator.make_token(user)
-                activation_url = f"http://{current_site.domain}/accounts/activate/{uid}/{token}/"
-                print("\n" + "=" * 65)
-                print(f">> NEW USER REGISTERED: {user.email}")
-                print(f">> CLICK HERE TO ACTIVATE ACCOUNT:")
-                print(f">> {activation_url}")
-                print("=" * 65 + "\n")
-                messages.success(request, 'Registration successful! Copy or click the activation link shown in your terminal.')
-                return redirect('login')
-            except Exception as e:
-                user.delete()
-                messages.error(request, f'Registration failed: Could not send verification email ({e}).')
-                return redirect('register')
+            send_email.send()
+            messages.success(request, 'Thank you for registering with us. We have sent you a verification email. Please verify it.')
+            return redirect('login')
             
     else:
                 
@@ -77,16 +64,7 @@ def login(request):
             messages.success(request, "You are logged in.")
             return redirect('home')
         else:
-            try:
-                account = Account.objects.get(email=email)
-                if not account.is_active:
-                    messages.error(request, "Your account has not been activated yet. Please check your terminal or email for the activation link.")
-                elif not account.check_password(password):
-                    messages.error(request, "Incorrect password. Please try again.")
-                else:
-                    messages.error(request, "Invalid login credentials.")
-            except Account.DoesNotExist:
-                messages.error(request, f"No account found with email '{email}'. Please sign up first.")
+            messages.error(request, "Invalid login credentials.")
             return redirect('login')
     return render(request, 'accounts/login.html')
 
@@ -98,11 +76,8 @@ def logout(request):
   
   
 def activate(request, uidb64, token):
-    try:
-        uid = urlsafe_base64_decode(uidb64).decode()
-        user = Account._default_manager.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, Account.DoesNotExist):
-        user = None
+    uid = urlsafe_base64_decode(uidb64).decode()
+    user = Account._default_manager.get(pk=uid)
 
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
