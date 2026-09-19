@@ -145,12 +145,32 @@ MEDIA_ROOT = BASE_DIR / 'mediafiles'  # django store images.
 
 
 
-# Email
+# Email Configuration (Gmail SMTP)
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
+
+EMAIL_SENDER = 'jyt156ro54@gmail.com'
+EMAIL_PASSWORD = 'abcdefGHijklmnop'  # Replace with 16-character Google App Password (no spaces)
 
 MAILERS = {
     "default": {
-        "BACKEND": "django.core.mail.backends.console.EmailBackend",
+        "BACKEND": "django.core.mail.backends.smtp.EmailBackend",
+        "OPTIONS": {
+            "host": "smtp.gmail.com",
+            "port": 587,
+            "username": EMAIL_SENDER,
+            "password": EMAIL_PASSWORD,
+            "use_tls": True,
+        },
     },
+}
+
+DEFAULT_FROM_EMAIL = EMAIL_SENDER
+
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+   
 }
 
